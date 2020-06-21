@@ -26,7 +26,7 @@ class Webhook():
         for set_url in zip(self.set_urls, app_names):
             print(set_url)
             print(send_to_url)
-            #request = requests.post(set_url[0], data = {'url': os.path.join(send_to_url, set_url[1])})
+            request = requests.post(set_url[0], data = {'url': os.path.join(send_to_url, set_url[1])})
 
     def delete_webhooks(self):
 
