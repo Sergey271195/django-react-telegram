@@ -14,7 +14,7 @@ const Login = (props) => {
 
     const onSubmitHandle = event => {
         event.preventDefault();
-        fetch(`${process.env.REACT_APP_BACKEND}/api/login/`, {
+        fetch(`/api/login/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
