@@ -44,6 +44,6 @@ class HeadlineApiView():
     def post(request):
         request_body = json.loads(request.body)
         print('User message\n', request_body)
-        PostgresBot(testbot_token).save_message_to_db(request_body)
+        PostgresBot(HeadlineApiView.testbot_token).save_message_to_db(request_body)
         message = request_body.get('message')
         return HttpResponse(200)
