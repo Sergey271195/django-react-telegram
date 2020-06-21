@@ -61,7 +61,7 @@ const MessageView = (props) => {
         event.preventDefault();
         console.log(message)
         setMessage('');
-        fetch(`${process.env.REACT_APP_BACKEND}/api/bot${props.match.params.botId}/${props.match.params.userId}/`, {
+        fetch(`/api/bot${props.match.params.botId}/${props.match.params.userId}/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
