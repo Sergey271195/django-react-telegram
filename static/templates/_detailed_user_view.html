@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+  <meta charset="utf-8">
+  <title>Detailed View</title>
+  <meta name="description" content="Detailed_Template">
+  <meta name="author" content="LS_Collab">
+
+  <link rel="stylesheet" href="">
+
+</head>
+
+<body>
+    <div style = 'padding: 20px;'>
+        <form action="{{request.path}}" method = 'POST'>
+            {% csrf_token %}
+            <input name = 'message' style = 'margin-right: 20px;'/>
+            <button type ='submit'>Send</button>
+        </form>
+    </div>
+
+    <div style = 'background-color: azure; padding: 30px; width: 50%; height: 500px; overflow-y: scroll;'>
+    {% for message in messages %}
+        {% if message.is_bot %}
+        <div style = 'border-radius: 20px; width: 30%; background-color: antiquewhite;  margin-top: 1%; padding: 20px'>{{message.text}}</div>
+        {% else %}
+        <div style = 'border-radius: 20px; width: 30%; background-color: blueviolet; margin-top: 1%; margin-left: 10%; padding: 20px;'>{{message.text}}</div>
+        {% endif %}
+    {% endfor %}
+    </div>
+    
+    <script src="{% static 'JS/_base.js' %}"></script>
+</body>
+</html>
