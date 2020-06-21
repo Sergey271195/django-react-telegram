@@ -1,14 +1,14 @@
 import React, {useState, useEffect } from 'react';
 import {Router, Route, Switch} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
+import {render} from 'react-dom';
 
-import MainView from './components/MainView';
-import BotView from './components/BotView';
-import MessageView from './components/MessageView';
-import Header from './components/HeaderView';
-import WebsocketHandler from './components/Websocket';
-import Login, {Logout} from './components/LoginView';
-import {useAuthHook} from './components/locStor';
+import MainView from './MainView';
+import BotView from './BotView';
+import MessageView from './MessageView';
+import Header from './HeaderView';
+import Login, {Logout} from './LoginView';
+import {useAuthHook} from './locStor';
 
 
 const history = createBrowserHistory()
@@ -45,3 +45,6 @@ function App() {
 }
 
 export default App;
+
+const container = document.getElementById("app");
+render(<App />, container);

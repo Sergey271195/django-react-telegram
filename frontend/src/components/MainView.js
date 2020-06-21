@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {Link, Redirect} from 'react-router-dom';
-import '../App.css';
+//import '../App.css';
 
 const MainView = (props) => {
 
@@ -17,7 +17,7 @@ const MainView = (props) => {
 
     useEffect(() => {
         if (props.authstate.authenticated) { 
-        fetch(`${process.env.REACT_APP_BACKEND}/api/user/${props.authstate.username}_${props.authstate.user_id}`)
+        fetch(`/api/user/${props.authstate.username}_${props.authstate.user_id}`)
         .then(response => response.json())
         .then(data => {if (!mountedRef.current) {return null} else {setBotList(data)}})
         }

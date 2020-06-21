@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import '../App.css';
+//import '../App.css';
 
 
 const BotView = (props) => {
@@ -15,10 +15,7 @@ const BotView = (props) => {
     }
 
     useEffect(() => {
-        /* fetch(`${process.env.REACT_APP_BACKEND}/api/bot_info${props.match.params.botId}/`)
-        .then(response => response.json())
-        .then(data => setBotInfo(data)); */
-        fetch(`${process.env.REACT_APP_BACKEND}/api/bot${props.match.params.botId}/`)
+        fetch(`/api/bot${props.match.params.botId}/`)
         .then(response => response.json())
         .then(data => setUserList(data));
     }, [props.match.params])

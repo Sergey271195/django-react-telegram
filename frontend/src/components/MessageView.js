@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import '../App.css';
+//import '../App.css';
 
 const MessageView = (props) => {
 
@@ -8,7 +8,7 @@ const MessageView = (props) => {
 
     const fetchData = () => {
         console.log('fetching')
-        fetch(`${process.env.REACT_APP_BACKEND}/api/bot${props.match.params.botId}/${props.match.params.userId}/`)
+        fetch(`/api/bot${props.match.params.botId}/${props.match.params.userId}/`)
         .then(response => response.json())
         .then(data => setMessageList(data))
     }
