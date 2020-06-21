@@ -17,7 +17,6 @@ class AsyncioBotView():
 
     asyncbot_token = os.environ.get('ASYNC_TOKEN')
     tgBot = TelegramBot(asyncbot_token)
-    postgresBot = PostgresBot(asyncbot_token)
 
     @staticmethod
     @csrf_exempt
@@ -40,7 +39,7 @@ class AsyncioBotView():
     def post(request):
         print(request.headers)
         request_body = json.loads(request.body)
-        db_message = AsyncioBotView.postgresBot.save_message_to_db(request_body)
+        db_message = PostgresBot(asyncbot_token).save_message_to_db(request_body)
         print('User message\n', request_body)
         message = request_body.get('message')
         return HttpResponse(200)

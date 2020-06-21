@@ -23,7 +23,6 @@ class HeadlineApiView():
 
     testbot_token = os.environ.get('TEST_TOKEN')
     tgBot = TelegramBot(testbot_token)
-    postgresBot = PostgresBot(testbot_token)
 
     @staticmethod
     @csrf_exempt
@@ -45,6 +44,6 @@ class HeadlineApiView():
     def post(request):
         request_body = json.loads(request.body)
         print('User message\n', request_body)
-        HeadlineApiView.postgresBot.save_message_to_db(request_body)
+        PostgresBot(testbot_token).save_message_to_db(request_body)
         message = request_body.get('message')
         return HttpResponse(200)
