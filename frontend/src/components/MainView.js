@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {Link, Redirect} from 'react-router-dom';
-//import '../App.css';
+import '../App.css';
 
 const MainView = (props) => {
 
@@ -39,8 +39,8 @@ const MainView = (props) => {
 
     if (isAuthenticated) {
         return (
-            <div>
-                <div>MainView</div>
+            <div className = 'container'>
+                <h1>{`< Profile />`}</h1>
             <div>{createBotList(botlist)}</div>
             </div>
         )

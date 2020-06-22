@@ -1,13 +1,74 @@
+html {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+
+.container {
+    margin: 0;
+    width: 100%;
+    background-color: palevioletred;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container {
+    margin-left: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-label {
+    margin: 10px;
+    font-size: 20px;
+}
+
+.form-button {
+    margin: 15px;
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 15px 40px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+}
 
 .nav-bar {
     width: 100%;
     background-color: aliceblue;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    display: inline-flex;
+
+    align-items: center;
+    height: 8vh;
+    min-height: 60px;
   }
 
 .nav-link {
     padding: 20px;
-    display: inline-block;
     margin-left: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.nav-link-right {
+    padding: 20px;
+    margin-left: auto;
+    margin-right: 10px;
     text-decoration: none;
     color: black;
 }
@@ -17,10 +78,33 @@
     color: black;
     margin-left: 30px;
     border-radius: 20px;
-    width: 10%;
+    width: 100%;
     background-color: antiquewhite;
     margin-top: 1%;
     padding: 20px
+}
+
+.message-container {
+    padding: 80px;
+    display: flex;
+    max-height: 100vh;
+    width: 50%;
+    overflow-y: scroll;
+    margin-right: auto;
+    margin-left: 5vw;
+    scrollbar-width: none;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.form-message-container {
+    width: 50%;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .user-list {
@@ -28,7 +112,8 @@
     color: black;
     margin-left: 30px;
     border-radius: 20px;
-    max-width: 30%;
+    max-width: 80%;
+    min-width: 35%;
     background-color: antiquewhite;
     margin-top: 1%;
     padding: 20px
@@ -39,7 +124,8 @@
     color: black;
     margin-left: 10%;
     border-radius: 20px;
-    max-width: 30%;
+    max-width: 80%;
+    min-width: 35%;
     background-color: blueviolet;
     margin-top: 1%;
     padding: 20px

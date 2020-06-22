@@ -11,6 +11,23 @@ from rest_framework.authtoken.models import Token
 import json
 
 
+class SignupView():
+
+    @staticmethod
+    @csrf_exempt
+    def post(request):
+        request_body = json.loads(request.body)
+        print(request_body)
+        serializer = UserSerializer(data = {'username': request_body.get('username'), 'email': request_body.get('email'), 'password': request_body.get('password')})
+        if serializer.is_valid():
+            new_user = User.objects.create_user(request_body.get('username'), request_body.get('email'), request_body.get('password'))
+            token = Token.objects.get(user = new_user)
+            userinfo = UserSerializer(new_user).data
+            return JsonResponse({'status': 200, 'id': userinfo.get('id'), 'username': userinfo.get('username'), 'token': token.key})
+        else:
+            return JsonResponse({'status': 400, **serializer.errors})           
+
+
 class TelegramBotApi():
 
     @staticmethod
@@ -28,11 +45,14 @@ class LoginView():
     def post(request):
         if request.method == 'POST':
             data = json.loads(request.body)
-            user = authenticate(username = data.get('username'), password =data.get('password'))
+            print(data)
+            user = authenticate(username = data.get('username'), password = data.get('password'))
             serializer = UserSerializer(user)
+            print(user, serializer)
             if user is not None:
+                print('Not none')
                 token = Token.objects.get(user = user)
-                return JsonResponse({'status': 200, ** serializer.data, 'token': token.key})
+                return JsonResponse({'status': 200, **serializer.data, 'token': token.key})
             else:
                 return JsonResponse({'status': 400})
 

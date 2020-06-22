@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-//import '../App.css';
+import '../App.css';
 
 const MessageView = (props) => {
 
@@ -7,7 +7,6 @@ const MessageView = (props) => {
     const [message, setMessage] = useState([]);
 
     const fetchData = () => {
-        console.log('fetching')
         fetch(`/api/bot${props.match.params.botId}/${props.match.params.userId}/`)
         .then(response => response.json())
         .then(data => setMessageList(data))
@@ -74,19 +73,18 @@ const MessageView = (props) => {
 
 
     return (
-        <div>
-            <div className = 'form_conatiner'>
-            <form onSubmit = {handleSubmit}>
-                <label>Your message</label>
-                <input type = 'text' name = 'meassge' value = {message} onChange = {(e) => setMessage(e.target.value)} />
-                <button type = 'submit'>Send message</button>
-            </form>
-            </div>
-
-            <div className = 'message_container'>
-                <div>{createMessageList(messagelist)}</div>
-            </div>
+        <div className = 'container'>
             
+
+            <div className = 'message-container'>{createMessageList(messagelist)}</div>
+            
+
+            <form className = 'form-message-container' onSubmit = {handleSubmit}>
+                <label className = 'form-label'>Your message</label>
+                <input type = 'text' name = 'meassge' value = {message} onChange = {(e) => setMessage(e.target.value)} />
+                <button className = 'form-button' type = 'submit'>Send message</button>
+            </form>
+
         </div>
     )
 }

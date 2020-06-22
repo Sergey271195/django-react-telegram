@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
-//import '../App.css';
+import '../App.css';
 
 
 const BotView = (props) => {
@@ -39,8 +39,8 @@ const BotView = (props) => {
     }
 
     return (
-        <div>
-            <div>BotView</div>
+        <div className = 'container'>
+            <h1>{`< Subscribers />`}</h1>
             <div>{createUserList(userlist)}</div>
         </div>
     )

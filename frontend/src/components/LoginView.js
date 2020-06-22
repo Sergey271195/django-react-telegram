@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
 import {useAuthHook} from './locStor';
+import '../App.css'
 
 const Login = (props) => {
 
@@ -31,18 +32,18 @@ const Login = (props) => {
         }
     }
     if (isAuthenticated) {
-        return (<Redirect to = '/' />)
+        return (<Redirect to = '/profile' />)
     } 
     else {
     return (
-        <div>
-            <div>LoginView</div>
-            <form onSubmit = {onSubmitHandle}>
-                <label>Username</label><br/>
-                <input type = 'text' name = 'username' value = {username} onChange = {event => setUsername(event.target.value)}/><br/>
-                <label>Password</label><br/>
-                <input type = 'password' name = 'password' value = {password} onChange = {event => setPassword(event.target.value)}/><br/>
-                <button type = 'submit'>Submit</button>
+        <div className = 'container'>
+            <h1>{`< Login />`}</h1>
+            <form className = 'form-container' onSubmit = {onSubmitHandle}>
+                <label className = 'form-label'>Username</label>
+                <input type = 'text' name = 'username' value = {username} onChange = {event => setUsername(event.target.value)}/>
+                <label className = 'form-label'>Password</label>
+                <input type = 'password' name = 'password' value = {password} onChange = {event => setPassword(event.target.value)}/>
+                <button className = 'form-button' type = 'submit'>Submit</button>
             </form>
         </div>
         )

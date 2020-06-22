@@ -4,6 +4,8 @@ import {createBrowserHistory} from 'history';
 import {render} from 'react-dom';
 
 import MainView from './MainView';
+import Signup from './SignupView';
+import Welcomepage from './WelcomeView';
 import BotView from './BotView';
 import MessageView from './MessageView';
 import Header from './HeaderView';
@@ -34,11 +36,13 @@ function App() {
     <Router history = {history}>
       <Header authstate = {authstate} setAuthstate = {setAuthstate}/>
         <Switch>
-          <Route exact path = '/' render = {(props) => <MainView {...props} authstate = {authstate} setAuthstate = {setAuthstate}/>} />
-          <Route exact path = '/login' render  = {(props) => <Login {...props} authstate = {authstate} setAuthstate = {setAuthstate}/>}/>
-          <Route exact path = '/logout' render  = {(props) => <Logout {...props} authstate = {authstate} setAuthstate = {setAuthstate}/>}/>
-          <Route path = '/bot:botId' component = {BotView} />
-          <Route path = '/:botId/user:userId' render = {(props) => <MessageView {...props} setMessage = {setMessage}/>} />
+            <Route exact path = '/' render = {(props) => <Welcomepage {...props} />} />
+            <Route exact path = '/signup' render = {(props) => <Signup {...props} authstate = {authstate} setAuthstate = {setAuthstate}/>} />
+            <Route exact path = '/profile' render = {(props) => <MainView {...props} authstate = {authstate} setAuthstate = {setAuthstate}/>} />
+            <Route exact path = '/login' render  = {(props) => <Login {...props} authstate = {authstate} setAuthstate = {setAuthstate}/>}/>
+            <Route exact path = '/logout' render  = {(props) => <Logout {...props} authstate = {authstate} setAuthstate = {setAuthstate}/>}/>
+            <Route path = '/bot:botId' component = {BotView} />
+            <Route path = '/:botId/user:userId' render = {(props) => <MessageView {...props} setMessage = {setMessage}/>} />
         </Switch>
     </Router>
   );

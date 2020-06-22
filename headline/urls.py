@@ -8,12 +8,11 @@ testbot_token = os.environ.get('TEST_TOKEN')
 
 bot_tokens = [asyncbot_token, testbot_token]
 
-Webhook(bot_tokens).set_webhooks()
+#Webhook(bot_tokens).set_webhooks()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('test/', include('headlineapi.urls')),
     path('async/', include('asynciobot.urls')),
-    path('ui/', include('uipart.urls')),
     path('', include('frontend.urls')),
 ]
