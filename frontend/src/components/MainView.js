@@ -17,9 +17,13 @@ const MainView = (props) => {
 
     useEffect(() => {
         if (props.authstate.authenticated) { 
-        fetch(`/api/user/${props.authstate.username}_${props.authstate.user_id}`)
+        fetch(`/api/user/${props.authstate.username}_${props.authstate.user_id}`, {
+            headers: {
+                'WWWCustomToken': props.authstate.token
+            }
+        })
         .then(response => response.json())
-        .then(data => {if (!mountedRef.current) {return null} else {setBotList(data)}})
+        .then(data => {if (!mountedRef.current) {return null} else {setBotList(data.data)}})
         }
     }, [props.authstate])
 

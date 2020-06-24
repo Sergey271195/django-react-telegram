@@ -41,8 +41,8 @@ function App() {
             <Route exact path = '/profile' render = {(props) => <MainView {...props} authstate = {authstate} setAuthstate = {setAuthstate}/>} />
             <Route exact path = '/login' render  = {(props) => <Login {...props} authstate = {authstate} setAuthstate = {setAuthstate}/>}/>
             <Route exact path = '/logout' render  = {(props) => <Logout {...props} authstate = {authstate} setAuthstate = {setAuthstate}/>}/>
-            <Route path = '/bot:botId' component = {BotView} />
-            <Route path = '/:botId/user:userId' render = {(props) => <MessageView {...props} setMessage = {setMessage}/>} />
+            <Route path = '/bot:botId' component = {(props) => <BotView {...props} authstate = {authstate} setAuthstate = {setAuthstate} />} />
+            <Route path = '/:botId/user:userId' render = {(props) => <MessageView {...props} authstate = {authstate} setMessage = {setMessage}/>} />
         </Switch>
     </Router>
   );

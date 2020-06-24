@@ -1,17 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import '../App.css';
 
 const MessageView = (props) => {
 
     const [messagelist, setMessageList] = useState([]);
     const [message, setMessage] = useState([]);
+    const mountedRef = useRef(true);
 
     const fetchData = () => {
-        fetch(`/api/bot${props.match.params.botId}/${props.match.params.userId}/`)
+        if (props.authstate.token != '') {
+        fetch(`/api/bot${props.match.params.botId}/${props.match.params.userId}/`, {
+            headers: {
+                'WWWCustomToken': props.authstate.token,
+            }
+        })
         .then(response => response.json())
-        .then(data => setMessageList(data))
+        .then(data => {if (!mountedRef.current) {return null} else {setMessageList(data.data)}})
+        }
     }
-
     let timer;
 
     const setTimer = () => {
@@ -19,14 +25,14 @@ const MessageView = (props) => {
     }
 
     const cleanUp = () => {
-        console.log('cleanUp')
+        mountedRef.current = false;
         clearInterval(timer);
     }
 
     useEffect(() => {
         fetchData();
         setTimer();
-    }, [])
+    }, [props.authstate])
 
     useEffect(() => {
         return cleanUp;
@@ -63,7 +69,8 @@ const MessageView = (props) => {
         fetch(`/api/bot${props.match.params.botId}/${props.match.params.userId}/`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
+                'WWWCustomToken': props.authstate.token,
             },
             body: JSON.stringify({'message': message})
         })

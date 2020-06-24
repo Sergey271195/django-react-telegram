@@ -5,9 +5,6 @@ import '../App.css'
 
 const Login = (props) => {
 
-    console.log(`${process.env.REACT_APP_BACKEND}`);
-    console.log(process.env)
-
     const isAuthenticated = props.authstate.authenticated
 
     const [username, setUsername] = useState('');

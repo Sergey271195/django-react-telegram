@@ -5,19 +5,20 @@ import '../App.css';
 
 const BotView = (props) => {
 
-
-    //const [botinfo, setBotInfo] = useState([]);
     const [userlist, setUserList] = useState([]);
 
     const cleanUp = () => {
-        //setBotInfo([]);
         setUserList([]);
     }
 
     useEffect(() => {
-        fetch(`/api/bot${props.match.params.botId}/`)
+        fetch(`/api/bot${props.match.params.botId}/`, {
+            headers: {
+                'WWWCustomToken': props.authstate.token
+            }
+        })
         .then(response => response.json())
-        .then(data => setUserList(data));
+        .then(data => setUserList(data.data));
     }, [props.match.params])
 
 
