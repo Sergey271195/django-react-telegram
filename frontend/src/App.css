@@ -10,6 +10,75 @@ body {
     scrollbar-width: none;
 }
 
+@keyframes rotate-half-circle-1 {
+    form {transform: rotate(0);}
+    to {transform: rotate(360deg);}
+}
+
+@keyframes rotate-half-circle-2 {
+    form {transform: rotate(135deg);}
+    to {transform: rotate(495deg);}
+}
+
+@keyframes rotate-half-circle-3 {
+    form {transform: rotate(45deg);}
+    to {transform: rotate(405deg);}
+}
+
+.half-circle-1 {
+
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 10px solid black;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    animation-name: rotate-half-circle-1;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    position: relative;
+
+}
+
+.half-circle-2 {
+
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 10px solid black;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    transform: rotate(135deg);
+    animation-name: rotate-half-circle-2;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    position: relative;
+
+    top: 50%;
+    left: 50%;
+    margin: -50px 0px 0px -50px;
+
+}
+
+.half-circle-3 {
+
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 10px solid black;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    transform: rotate(45deg);
+    animation-name: rotate-half-circle-3;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    position: relative;
+
+    top: 50%;
+    left: 50%;
+    margin: -25px 0px 0px -25px;
+
+}
 
 .container {
     margin: 0;
@@ -32,6 +101,14 @@ body {
 .form-label {
     margin: 10px;
     font-size: 20px;
+}
+
+.form-textarea {
+    min-width: 50%;
+}
+
+.form-input {
+    min-width: 150%;
 }
 
 .form-button {

@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import {LoginContext} from '../context/LoginState';
 import {Redirect} from 'react-router-dom';
-import {useAuthHook} from './locStor';
 import '../App.css'
 
-const Signup = (props) => {
+const Signup = () => {
 
-
-    const isAuthenticated = props.authstate.authenticated
+    const {userInfo, setLocalStorage} = useContext(LoginContext);
+    const isAuthenticated = userInfo.authenticated
 
     const [userinfo, setUserinfo] = useState({
         username: '',
@@ -37,7 +37,7 @@ const Signup = (props) => {
 
     const LoginUser = (data) => {
         if (data.status === 200) {
-            props.setAuthstate(useAuthHook.setLocalStorage(data));
+            setLocalStorage(data);
         }
     }
     if (isAuthenticated) {
@@ -49,15 +49,16 @@ const Signup = (props) => {
             <h1>{`< Sign Up />`}</h1>
             <form className = 'form-container' onSubmit = {onSubmitHandle}>
                 <label className = 'form-label'>Username</label>
-                <input type = 'text' name = 'username' value = {userinfo.username} onChange = {event => setUserinfo({...userinfo, username: event.target.value})}/>
+                <input className = 'form-input' type = 'text' name = 'username' value = {userinfo.username} onChange = {event => setUserinfo({...userinfo, username: event.target.value})}/>
                 <label className = 'form-label'>Email *</label>
-                <input type = 'email' name = 'email' value = {userinfo.email} onChange = {event => setUserinfo({...userinfo, email : event.target.value})}/>
+                <input className = 'form-input' type = 'email' name = 'email' value = {userinfo.email} onChange = {event => setUserinfo({...userinfo, email : event.target.value})}/>
                 <label className = 'form-label'>Password</label>
-                <input type = 'password' name = 'password' value = {userinfo.password} onChange = {event => setUserinfo({...userinfo, password : event.target.value})}/>
+                <input className = 'form-input' type = 'password' name = 'password' value = {userinfo.password} onChange = {event => setUserinfo({...userinfo, password : event.target.value})}/>
                 <label className = 'form-label'>Confirm Password</label>
-                <input type = 'password' name = 'confirm-password' value = {userinfo.conf_password} onChange = {event => setUserinfo({...userinfo, conf_password: event.target.value})}/>
+                <input className = 'form-input' type = 'password' name = 'confirm-password' value = {userinfo.conf_password} onChange = {event => setUserinfo({...userinfo, conf_password: event.target.value})}/>
                 <button className = 'form-button' type = 'submit'>Submit</button>
             </form>
+
         </div>
         )
     }

@@ -1,54 +1,71 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useContext} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import '../App.css';
+import {LoginContext} from '../context/LoginState';
+import {FetchContext} from '../context/FetchState';
+import {CSSTransition} from 'react-transition-group';
 
-const MainView = (props) => {
+const BotList = ({botlist}) => {
+    return botlist.map(bot => {
+        return(
+        <Link key = {bot.bot} to = {{pathname: `/bot${bot.bot}`, params:{bot_id: bot.bot}}}>
+            <div key = {`${bot.bot_name}_div`} className = "element-list">{bot.bot_name}</div>
+        </Link>
+        )
+    })
+}
 
+const MainView = () => {
 
-    let isAuthenticated = props.authstate.authenticated
+    let {statelist, dispatchList, ErrorView, LoadingView} = useContext(FetchContext);
+    let {userInfo} = useContext(LoginContext);
 
-    const [botlist, setBotList] = useState([]);
+    let isAuthenticated = userInfo.authenticated
+
     const mountedRef = useRef(true);
 
     const cleanUp = () => {
-        setBotList([]);
         mountedRef.current = false;
     }
 
     useEffect(() => {
-        if (props.authstate.authenticated) { 
-        fetch(`/api/user/${props.authstate.username}_${props.authstate.user_id}`, {
+        dispatchList({type: 'FETCH'})
+        if (userInfo.authenticated) { 
+        fetch(`/api/user/${userInfo.username}_${userInfo.user_id}`, {
             headers: {
-                'WWWCustomToken': props.authstate.token
+                'WWWCustomToken': userInfo.token
             }
         })
         .then(response => response.json())
-        .then(data => {if (!mountedRef.current) {return null} else {setBotList(data.data)}})
+        .then(data => {if (!mountedRef.current) {return null} else {dispatchList({
+            type: 'FETCH_SUCC',
+            payload: data.data
+                })
+            }}).catch((error) => dispatchList({type: 'FETCH_ERR'}))
         }
-    }, [props.authstate])
+    }, [])
 
     useEffect(() => {
         return cleanUp
     }, [])
 
-    const createBotList = botlist => {
-        let component = botlist.map(bot => {
-            return (
-            <Link key = {bot.bot} to = {{pathname: `/bot${bot.bot}`, params:{bot_id: bot.bot}}}>
-                <div className = "element-list">{bot.bot_name}</div>
-            </Link>);
-        })
-        return component
-    }
-
     if (isAuthenticated) {
         return (
             <div className = 'container'>
-                <h1>{`< Profile />`}</h1>
-            <div>{createBotList(botlist)}</div>
+                {statelist.isError ? <ErrorView />: 
+            
+                    statelist.isLoading ? <LoadingView /> :
+
+                    (<>
+                        <h1>{`< Profile />`}</h1>
+                        <div><BotList botlist = {statelist.data} /></div>
+                    </>)
+
+                }
             </div>
-        )
-    }
+            )
+        }
+
     else {
         return (<Redirect to = '/login' />)
     }

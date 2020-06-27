@@ -1,14 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import {LoginContext} from '../context/LoginState';
 import {Redirect} from 'react-router-dom';
-import {useAuthHook} from './locStor';
 import '../App.css'
 
-const Login = (props) => {
+const Login = () => {
 
-    const isAuthenticated = props.authstate.authenticated
+    const {userInfo, setLocalStorage} = useContext(LoginContext);
+
+    const isAuthenticated = userInfo.authenticated
+
+    console.log(userInfo.authenticated)
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [wrongcred, setWrongcred] = useState(false)
 
     const onSubmitHandle = event => {
         event.preventDefault();
@@ -18,14 +23,14 @@ const Login = (props) => {
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({'username': username, 'password': password})
-        }).then(response => response.json()).then(data => LoginUser(data))
+        }).then(response => response.json()).then(data => {data.status == 200 ? LoginUser(data): setWrongcred(true)})
         setUsername('');
         setPassword('');
     }
 
     const LoginUser = (data) => {
         if (data.status === 200) {
-            props.setAuthstate(useAuthHook.setLocalStorage(data));
+            setLocalStorage(data);
         }
     }
     if (isAuthenticated) {
@@ -37,10 +42,11 @@ const Login = (props) => {
             <h1>{`< Login />`}</h1>
             <form className = 'form-container' onSubmit = {onSubmitHandle}>
                 <label className = 'form-label'>Username</label>
-                <input type = 'text' name = 'username' value = {username} onChange = {event => setUsername(event.target.value)}/>
+                <input className = 'form-input' type = 'text' name = 'username' value = {username} onChange = {event => setUsername(event.target.value)}/>
                 <label className = 'form-label'>Password</label>
-                <input type = 'password' name = 'password' value = {password} onChange = {event => setPassword(event.target.value)}/>
+                <input className = 'form-input' type = 'password' name = 'password' value = {password} onChange = {event => setPassword(event.target.value)}/>
                 <button className = 'form-button' type = 'submit'>Submit</button>
+                <label className = 'form-label'>{wrongcred ? 'Wrong credentials' : ''}</label>
             </form>
         </div>
         )
@@ -49,9 +55,12 @@ const Login = (props) => {
 
 const Logout = (props) => {
 
+    const {userInfo, clearLocalStorage} = useContext(LoginContext);
+
     useEffect(() => {
-        props.setAuthstate(useAuthHook.clearLocalStorage());
-    }, [props])
+        clearLocalStorage();
+        //props.setAuthstate(useAuthHook.clearLocalStorage());
+    }, [userInfo])
 
     return (<Redirect to = '/login' />)
 

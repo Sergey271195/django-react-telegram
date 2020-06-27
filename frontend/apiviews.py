@@ -38,7 +38,7 @@ class SignupView():
             new_user = User.objects.create_user(request_body.get('username'), request_body.get('email'), request_body.get('password'))
             token = Token.objects.get(user = new_user)
             userinfo = UserSerializer(new_user).data
-            return JsonResponse({'status': 200, 'id': userinfo.get('id'), 'username': userinfo.get('username'), 'token': token.key})
+            return JsonResponse({'status': 200, 'user_id': userinfo.get('id'), 'username': userinfo.get('username'), 'token': token.key})
         else:
             return JsonResponse({'status': 400, **serializer.errors})           
 
@@ -62,10 +62,11 @@ class LoginView():
         if request.method == 'POST':
             data = json.loads(request.body)
             user = authenticate(username = data.get('username'), password = data.get('password'))
+            print(user)
             serializer = UserSerializer(user)
             if user is not None:
                 token = Token.objects.get(user = user)
-                return JsonResponse({'status': 200, **serializer.data, 'token': token.key})
+                return JsonResponse({'status': 200, 'user_id': serializer.data.get('id'),  **serializer.data, 'token': token.key})
             else:
                 return JsonResponse({'status': 400})
 

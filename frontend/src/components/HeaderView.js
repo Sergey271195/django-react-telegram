@@ -1,13 +1,17 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 import '../App.css';
+import {LoginContext} from '../context/LoginState';
+
 
 const Header = (props) => {
+
+    const {userInfo} = useContext(LoginContext);
 
     return (
         <div>
             
-            {props.authstate.authenticated ? 
+            {userInfo.authenticated ? 
             (
             <div className = "nav-bar">
                 <div className = "nav-link"><Link to = '/'>Home</Link></div>
