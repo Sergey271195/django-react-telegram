@@ -9,7 +9,7 @@ const BotList = ({botlist}) => {
     return botlist.map(bot => {
         return(
         <Link key = {bot.bot} to = {{pathname: `/bot${bot.bot}`, params:{bot_id: bot.bot}}}>
-            <div key = {`${bot.bot_name}_div`} className = "element-list">{bot.bot_name}</div>
+            <div className = "element-list">{bot.bot_name}</div>
         </Link>
         )
     })

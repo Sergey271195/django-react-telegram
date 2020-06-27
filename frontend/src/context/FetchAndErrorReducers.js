@@ -1,7 +1,6 @@
 const  FetchListReducer = (state, action) => {
     switch(action.type) {
         case 'FETCH': {
-            console.log('FETCH')
             return {
                 ...state,
                 isLoading: true,
@@ -9,11 +8,6 @@ const  FetchListReducer = (state, action) => {
             }
         };
         case 'FETCH_SUCC': {
-            console.log('FETCH_SUCC')
-            console.log({...state})
-            console.log('action')
-            console.log({...action.payload})
-            console.log(action.payload);
             return {
                 ...state, 
                 isLoading: false,
@@ -22,7 +16,6 @@ const  FetchListReducer = (state, action) => {
             }
         };
         case 'FETCH_ERR': {
-            console.log('FETCH_ERR')
             return {
                 ...state, 
                 isLoading: false,
@@ -30,7 +23,6 @@ const  FetchListReducer = (state, action) => {
             }
         };
         default:
-            console.log('def')
             return {
             ...state,
             isLoading: false,

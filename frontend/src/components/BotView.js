@@ -10,7 +10,7 @@ const UserList = ({users}) => {
     return (users.map(user => {
         return (
         <Link key = {user.bot_user} to = {`/${user.bot}/user${user.bot_user}`}>
-            <div key = {`${user.bot_user}_div`} className = "element-list">{user.username}</div>
+            <div className = "element-list">{user.username}</div>
         </Link>
             )
         })

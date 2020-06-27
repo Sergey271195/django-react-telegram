@@ -11,7 +11,7 @@ const returnDate = messagedate => {
     let day = String(date.getDate());
     let month = String(date.getMonth()).length > 1 ? String(date.getMonth()) : '0'+String(date.getMonth());
     let year = String(date.getFullYear());
-    return (<div key = {`${messagedate}`}>{hours}:{minutes}:{seconds} {day}.{month}.{year}</div>)
+    return (<div>{hours}:{minutes}:{seconds} {day}.{month}.{year}</div>)
 }
 
 const MessageList = ({messagelist}) => {
@@ -19,8 +19,8 @@ const MessageList = ({messagelist}) => {
         let date = returnDate(message.date)
         return(
         <div key = {message.message_id} className = {message.is_bot ? "bot-list" : "user-list"}>
-            <div key = {`${message.message_id}_from`}>from: {message.is_bot ? message.bot_name : message.username}</div>
-            <div key = {`${message.message_id}_text`}>{message.text}</div>
+            <div>from: {message.is_bot ? message.bot_name : message.username}</div>
+            <div>{message.text}</div>
             {date}
         </div>)
     })
