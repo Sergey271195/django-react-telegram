@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 djangorestframework = "==3.11.0"
-websockets = "==8.1"
+websockets = "==9.1"
 psycopg2 = "==2.7.5"
 asgiref = "==3.2.10"
 dj-database-url = "==0.5.0"
